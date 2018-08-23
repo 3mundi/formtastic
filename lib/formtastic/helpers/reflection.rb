@@ -23,6 +23,8 @@ module Formtastic
           case association_macro_for_method(method)
           when :has_and_belongs_to_many, :has_many, :references_and_referenced_in_many, :references_many
             :"#{method.to_s.singularize}_ids"
+          when :embeds_many, :embeds_one
+            method.to_sym
           else
             return reflection.foreign_key.to_sym if reflection.respond_to?(:foreign_key)
             return reflection.options[:foreign_key].to_sym unless reflection.options[:foreign_key].blank?
